@@ -1,3 +1,26 @@
+/* MIT License
+ *
+ * Copyright (c) 2021 Brighton Sikarskie
+ *  
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #define _XOPEN_SOURCE 600 // posix_openpt(), grantpt(), unlockpt() ...
 #include <stdio.h>
 #include <stdlib.h>
@@ -103,7 +126,7 @@ struct X11 {
 
 bool set_term_size(struct PTY*, struct X11*);
 bool pt_pair(struct PTY*);
-void x11_key(XKeyEvent*, struct PTY*);
+void x11_key(XKeyEvent *, struct PTY*);
 void x11_redraw(struct X11*);
 
 int main(void) {
@@ -142,26 +165,26 @@ bool set_term_size(struct PTY *pty, struct X11 *x11) {
      * SIGWINCH.
      *
      *
-	 * man ioctl_tty.2:
-	 * TIOCSWINSZ      const struct winsize *argp 
-     *  			Set window size. 
+     * man ioctl_tty.2:
+     * TIOCSWINSZ      const struct winsize *argp 
+     *              Set window size. 
      * The struct used by these ioctls is defined as 
-	 *
+     *
      * struct winsize { 
      *          unsigned short ws_row; 
      *          unsigned short ws_col; 
      *          unsigned short ws_xpixel; // unused
      *          unsigned short ws_ypixel; // unused 
-	 * }; 
-	 *
-	 * When the window size changes, a SIGWINCH signal is sent to the foreground process group. 
+     * }; 
+     *
+     * When the window size changes, a SIGWINCH signal is sent to the foreground process group. 
      *
      * SIGWINCH - signal window [size] change, it is used to signal a change in window size
-	 */
-	if (ioctl(pty->master, TIOCSWINSZ, &ws) == -1) {
-		return false;
-	}
-	return true;
+     */
+    if (ioctl(pty->master, TIOCSWINSZ, &ws) == -1) {
+        return false;
+    }
+    return true;
 }
 
 bool pt_pair(struct PTY* pty) {
