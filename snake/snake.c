@@ -1,17 +1,17 @@
 /* MIT License
  *
  * Copyright (c) 2021 Brighton Sikarskie
- *  
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -73,52 +73,52 @@ int main(void) {
         case 'q':
         case 27: // esc key
             goto end;
-        case 'w': 
+        case 'w':
         case 'k':
         case KEY_UP:
             if (snake.direction != DOWN) {
                 snake.direction = UP;
             }
             break;
-        case 'a': 
+        case 'a':
         case 'h':
         case KEY_LEFT:
             if (snake.direction != RIGHT) {
                 snake.direction = LEFT;
-            } 
+            }
             break;
         case 's':
         case 'j':
         case KEY_DOWN:
             if (snake.direction != UP) {
                 snake.direction = DOWN;
-            } 
+            }
             break;
-        case 'd': 
+        case 'd':
         case 'l':
         case KEY_RIGHT:
             if (snake.direction != LEFT) {
                 snake.direction = RIGHT;
-            } 
+            }
             break;
-        default: 
+        default:
             break;
         }
 
         switch (snake.direction) {
-        case LEFT: 
-            --snake.position.x; 
+        case LEFT:
+            --snake.position.x;
             break;
-        case RIGHT: 
-            ++snake.position.x; 
+        case RIGHT:
+            ++snake.position.x;
             break;
-        case DOWN: 
-            ++snake.position.y; 
+        case DOWN:
+            ++snake.position.y;
             break;
-        case UP: 
-            --snake.position.y; 
+        case UP:
+            --snake.position.y;
             break;
-        case STILL: 
+        case STILL:
             break;
         }
 
@@ -148,7 +148,7 @@ int main(void) {
             x1 = x2;
             y1 = y2;
         }
-        
+
         erase();
         for (int y = -1; y <= HEIGHT; ++y) {
             for (int x = -1; x <= WIDTH; ++x) {

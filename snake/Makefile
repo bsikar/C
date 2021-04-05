@@ -6,7 +6,7 @@ all: snake
 
 snake: snake.c
 
-clean: 
+clean:
 	rm snake
 
 CC = clang

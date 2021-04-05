@@ -1,17 +1,17 @@
 /* MIT License
  *
  * Copyright (c) 2021 Brighton Sikarskie
- *  
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -37,7 +37,7 @@ void getDiscards(void);
 
 int main(int argc, char **argv) {
     srand(time(NULL));
-    
+
     if (argc > 1) {
         if (strcmp(argv[1], "--help") && strcmp(argv[1], "-h")) {
             puts("try with '--help'");
@@ -47,17 +47,17 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    
+
     getNames();
     getHands();
     getDiscards();
-    
+
     return 0;
 }
 
 void getNames(void) {
     char answer[4] = {0};
-    
+
     for (int i = 0; i < PLAYER_COUNT; ++i) {
         for (;;) {
             // get user input
@@ -67,20 +67,20 @@ void getNames(void) {
             stdin = freopen(NULL, "r", stdin);
             // remove \n from name
             player[i].name[strcspn(player[i].name, "\n")] = '\0';
-            
+
             // verify that the entered name is correct
             printf("You entered '%s'\n", player[i].name);
             printf("Are you sure? [Y/n]: ");
             fgets(answer, 4, stdin);
             stdin = freopen(NULL, "r", stdin);
             answer[strcspn(answer, "\n")] = '\0';
-            // if the user entered y, yes, or nothing than rerun user input 
+            // if the user entered y, yes, or nothing than rerun user input
             if (strcasecmp(answer, "y") || strcasecmp(answer, "yes") || strcmp(answer, "")) {
                 break;
             }
         }
     }
-    // set who gets the crib   
+    // set who gets the crib
     int winner = rand() % PLAYER_COUNT;
     player[0].crib = winner;
     player[1].crib = !winner;
@@ -115,7 +115,7 @@ void getHands(void) {
     }
     // give the crib to the other player
     player[0].crib = !player[0].crib;
-    player[1].crib = !player[1].crib; 
+    player[1].crib = !player[1].crib;
 }
 
 void getDiscards(void) {
@@ -126,7 +126,7 @@ void getDiscards(void) {
             printf("%s: Card %d: %s\n", player[i].name, o, deck[player[i].hand[o-1]]);
         }
         printf("It is %s's crib\nWhat two cards do you want to discard: ", (player[0].crib)?player[0].name:player[1].name);
-    
+
         int count = 0;
         while ((c = getchar()) && count != 2) {
             const size_t index = (c - '0') - 1;

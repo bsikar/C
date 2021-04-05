@@ -1,17 +1,17 @@
 /* MIT License
  *
  * Copyright (c) 2021 Brighton Sikarskie
- *  
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,7 +40,7 @@
 const char* shell = "/bin/sh";
 
 /* pty - pseudoterminal interfaces
- * `man pty`: 
+ * `man pty`:
  * A pseudoterminal (sometimes abbreviated "pty") is a pair of
  * virtual character devices that provide a bidirectional
  * communication channel.  One end of the channel is called the
@@ -59,9 +59,9 @@ struct PTY {
  */
 struct X11 {
     /* fd - file descriptor
-     * To the kernel, all open files are referred to by File Descriptors. 
+     * To the kernel, all open files are referred to by File Descriptors.
      * A file descriptor is a non-negative number, but I am specifing int here
-     * instead of unsigned int because PTY.master and PTY.slave must be int. 
+     * instead of unsigned int because PTY.master and PTY.slave must be int.
      */
     int fd;
     /* dpy - short for display
@@ -70,11 +70,11 @@ struct X11 {
     Display* dpy;
     /* screen - screen
      * Screen is a terminal program in Linux which allows us to use a virtual
-     * as full-screen window manager 
+     * as full-screen window manager
      */
     int screen;
     /* root - the parent/root window
-     * Specifies the parent window 
+     * Specifies the parent window
      */
     Window parent;
     /* termwin - the terminal window
@@ -132,7 +132,7 @@ void x11_redraw(struct X11*);
 int main(void) {
     struct PTY pty;
     struct X11 x11;
-    
+
     if (!set_term_size(&pty, &x11)) {
         return 1;
     }
@@ -166,18 +166,18 @@ bool set_term_size(struct PTY *pty, struct X11 *x11) {
      *
      *
      * man ioctl_tty.2:
-     * TIOCSWINSZ      const struct winsize *argp 
-     *              Set window size. 
-     * The struct used by these ioctls is defined as 
+     * TIOCSWINSZ      const struct winsize *argp
+     *              Set window size.
+     * The struct used by these ioctls is defined as
      *
-     * struct winsize { 
-     *          unsigned short ws_row; 
-     *          unsigned short ws_col; 
+     * struct winsize {
+     *          unsigned short ws_row;
+     *          unsigned short ws_col;
      *          unsigned short ws_xpixel; // unused
-     *          unsigned short ws_ypixel; // unused 
-     * }; 
+     *          unsigned short ws_ypixel; // unused
+     * };
      *
-     * When the window size changes, a SIGWINCH signal is sent to the foreground process group. 
+     * When the window size changes, a SIGWINCH signal is sent to the foreground process group.
      *
      * SIGWINCH - signal window [size] change, it is used to signal a change in window size
      */
@@ -199,8 +199,8 @@ bool pt_pair(struct PTY* pty) {
      *
      * O_RDWR: This argument flag, this request opens the file read/write.
      * O_NOCTTY: This creation flag:
-     *   prevent the OS from assigning the opened 
-     *   file as the process's controlling terminal 
+     *   prevent the OS from assigning the opened
+     *   file as the process's controlling terminal
      *   when opening a TTY device file
      */
     pty->master = posix_openpt(O_RDWR | O_NOCTTY);

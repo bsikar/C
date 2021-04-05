@@ -1,17 +1,17 @@
 /* MIT License
  *
  * Copyright (c) 2021 Brighton Sikarskie
- *  
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -55,7 +55,7 @@ int main(void) {
     int name1Hand[HAND_COUNT] = {0}, name2Hand[HAND_COUNT] = {0};
     int usedCards[DECK_COUNT] = {0}, crib[CRIB_COUNT] = {0}, cribTracker = 0, cut = 0;
     int name1Score = 0, name2Score = 0;
-    srand(time(NULL));  
+    srand(time(NULL));
 
     get_name(name1, 1);
     get_name(name2, 2);
@@ -69,7 +69,7 @@ int main(void) {
         discard_2(name1, name1Hand, crib, 1, cribTracker);
         discard_2(name2, name2Hand, crib, 2, cribTracker);
         get_cut(usedCards, &cut, name1, name2, &name1Score, &name2Score, cribTracker);
-        
+
         // stage_1();
         stage_2(name1, name2, name1Hand, name2Hand, crib, cut, usedCards, &name1Score, &name2Score, &cribTracker);
     }
@@ -141,7 +141,7 @@ void get_hand(int hand[], int usedCards[]) {
             ++usedCards[card];
             hand[count++] = card;
         }
-    }   
+    }
 }
 
 void bubble_sort(int hand[], int arraySize) {
@@ -151,8 +151,8 @@ void bubble_sort(int hand[], int arraySize) {
         for (int j = 0; j < arraySize - i - 1; j++) {
             if (hand[j] > hand[j+1]) {
                     temp = hand[j];
-                    hand[j] = hand[j+1]; 
-                    hand[j+1] = temp; 
+                    hand[j] = hand[j+1];
+                    hand[j+1] = temp;
             }
         }
     }
@@ -160,7 +160,7 @@ void bubble_sort(int hand[], int arraySize) {
 
 void print_hand(char name[], int hand[], int playerNumber, int cribTracker) {
     char suite[MAX_SUITE_LENGTH + 1] = "";
-    
+
     bubble_sort(hand, HAND_COUNT);
 
     printf("* %s's Hand *\n", name);
@@ -168,36 +168,36 @@ void print_hand(char name[], int hand[], int playerNumber, int cribTracker) {
 
     for (int i = 0; i < HAND_COUNT; ++i) {
         switch (hand[i] % 4) {
-        case 0: 
-            strcpy(suite,"diamonds"); 
-            break; 
-        case 1: 
-            strcpy(suite, "hearts"); 
-            break; 
-        case 2: 
-            strcpy(suite, "clubs"); 
-            break; 
-        case 3: 
-            strcpy(suite, "spades"); 
+        case 0:
+            strcpy(suite,"diamonds");
+            break;
+        case 1:
+            strcpy(suite, "hearts");
+            break;
+        case 2:
+            strcpy(suite, "clubs");
+            break;
+        case 3:
+            strcpy(suite, "spades");
             break;
         }
         switch (hand[i] / 4) {
-        case 0: 
-            printf("[%d] Ace of %s\n", i, suite); 
+        case 0:
+            printf("[%d] Ace of %s\n", i, suite);
             break;
-        case 10: 
-            printf("[%d] Jack of %s\n", i, suite); 
+        case 10:
+            printf("[%d] Jack of %s\n", i, suite);
             break;
-        case 11: 
-            printf("[%d] Queen of %s\n", i, suite); 
+        case 11:
+            printf("[%d] Queen of %s\n", i, suite);
             break;
-        case 12: 
-            printf("[%d] King of %s\n", i, suite); 
+        case 12:
+            printf("[%d] King of %s\n", i, suite);
             break;
-        case 50: 
+        case 50:
             break;
-        default: 
-            printf("[%d] %d of %s\n", i, (hand[i] / 4)+1, suite); 
+        default:
+            printf("[%d] %d of %s\n", i, (hand[i] / 4)+1, suite);
             break;
         }
     }
@@ -205,7 +205,7 @@ void print_hand(char name[], int hand[], int playerNumber, int cribTracker) {
 
 void print_crib(char name1[], char name2[], int crib[], int cribTracker) {
     char suite[MAX_SUITE_LENGTH + 1] = "";
-    
+
     bubble_sort(crib, CRIB_COUNT);
 
     if (cribTracker == 1) {
@@ -215,34 +215,34 @@ void print_crib(char name1[], char name2[], int crib[], int cribTracker) {
     }
     for (int i = 0; i < CRIB_COUNT; ++i) {
         switch (crib[i] % 4) {
-        case 0: 
-            strcpy(suite,"diamonds"); 
-            break; 
-        case 1: 
-            strcpy(suite, "hearts"); 
-            break; 
-        case 2: 
-            strcpy(suite, "clubs"); 
-            break; 
-        case 3: 
-            strcpy(suite, "spades"); 
+        case 0:
+            strcpy(suite,"diamonds");
+            break;
+        case 1:
+            strcpy(suite, "hearts");
+            break;
+        case 2:
+            strcpy(suite, "clubs");
+            break;
+        case 3:
+            strcpy(suite, "spades");
             break;
         }
         switch (crib[i] / 4) {
-        case 0: 
-            printf("[%d] Ace of %s\n", i, suite); 
+        case 0:
+            printf("[%d] Ace of %s\n", i, suite);
             break;
-        case 10: 
-            printf("[%d] Jack of %s\n", i, suite); 
+        case 10:
+            printf("[%d] Jack of %s\n", i, suite);
             break;
-        case 11: 
-            printf("[%d] Queen of %s\n", i, suite); 
+        case 11:
+            printf("[%d] Queen of %s\n", i, suite);
             break;
-        case 12: 
-            printf("[%d] King of %s\n", i, suite); 
+        case 12:
+            printf("[%d] King of %s\n", i, suite);
             break;
-        default: 
-            printf("[%d] %d of %s\n", i, (crib[i] / 4)+1, suite); 
+        default:
+            printf("[%d] %d of %s\n", i, (crib[i] / 4)+1, suite);
             break;
         }
     }
@@ -281,7 +281,7 @@ void discard_2(char name[], int hand[], int crib[], int playerNumber, int cribTr
         }
     }
     clear();
-    
+
 }
 
 void get_cut(int usedCards[], int *cut, char name1[], char name2[], int *name1Score, int *name2Score, int cribTracker) {
@@ -290,43 +290,43 @@ void get_cut(int usedCards[], int *cut, char name1[], char name2[], int *name1Sc
 
     if (usedCards[card] == 0 && (card / 4) == 10 && cribTracker == 1) {
         *name1Score += 2;
-        printf("%s (the dealer/the person who has the crib) cut a Jack. +2 points for knobs\n%s's score = %d and %s's score = %d\n", name1, name1, *name1Score, name2, *name2Score); 
+        printf("%s (the dealer/the person who has the crib) cut a Jack. +2 points for knobs\n%s's score = %d and %s's score = %d\n", name1, name1, *name1Score, name2, *name2Score);
     } else if (usedCards[card] == 0 && (card / 4) == 10 && cribTracker == 2) {
         name2Score += 2;
-        printf("%s (the dealer/the person who has the crib) cut a Jack. +2 points for knobs\n%s's score = %d and %s's score = %d\n", name2, name2, *name2Score, name1, *name1Score); 
-    }   
+        printf("%s (the dealer/the person who has the crib) cut a Jack. +2 points for knobs\n%s's score = %d and %s's score = %d\n", name2, name2, *name2Score, name1, *name1Score);
+    }
     if (usedCards[card] == 0) {
         *cut = card;
-        
+
         switch (card % 4) {
-        case 0: 
-            strcpy(suite,"diamonds"); 
-            break; 
-        case 1: 
-            strcpy(suite, "hearts"); 
-            break; 
-        case 2: 
-            strcpy(suite, "clubs"); 
-            break; 
-        case 3: 
-            strcpy(suite, "spades"); 
+        case 0:
+            strcpy(suite,"diamonds");
+            break;
+        case 1:
+            strcpy(suite, "hearts");
+            break;
+        case 2:
+            strcpy(suite, "clubs");
+            break;
+        case 3:
+            strcpy(suite, "spades");
             break;
         }
         switch (card / 4) {
-        case 0: 
-            printf("Ace of %s\n", suite); 
+        case 0:
+            printf("Ace of %s\n", suite);
             break;
-        case 10: 
-            printf("Jack of %s\n", suite); 
+        case 10:
+            printf("Jack of %s\n", suite);
             break;
-        case 11: 
-            printf("Queen of %s\n", suite); 
+        case 11:
+            printf("Queen of %s\n", suite);
             break;
-        case 12: 
-            printf("King of %s\n", suite); 
+        case 12:
+            printf("King of %s\n", suite);
             break;
-        default: 
-            printf("%d of %s\n", (card / 4)+1, suite); 
+        default:
+            printf("%d of %s\n", (card / 4)+1, suite);
             break;
         }
     }
