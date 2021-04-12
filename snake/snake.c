@@ -34,6 +34,7 @@
 #define SNAKE_TICK 75000
 #define WIDTH      40
 #define HEIGHT     20
+#defile ESC_KEY    27
 
 enum Direction {
     LEFT,
@@ -52,13 +53,13 @@ struct Snake {
     struct Position position;
     int length;
     enum Direction direction;
-    struct Position tail[(WIDTH*HEIGHT)-1];
+    struct Position tail[(WIDTH * HEIGHT) - 1];
 };
 
 int main(void) {
     srand(time(NULL));
-    struct Snake snake = {{WIDTH/2, HEIGHT/2}, 1, STILL, {{WIDTH/2, HEIGHT/2}}};
-    struct Position food = {rand()%WIDTH, rand()%HEIGHT};
+    struct Snake snake = {{WIDTH  / 2, HEIGHT / 2}, 1, STILL, {{WIDTH / 2, HEIGHT / 2}}};
+    struct Position food = {rand() % WIDTH, rand() % HEIGHT};
 
     initscr();
     timeout(0);
@@ -71,7 +72,7 @@ int main(void) {
     for (;;) {
         switch (tolower(getch())) {
         case 'q':
-        case 27: // esc key
+        case ESC_KEY:
             goto end;
         case 'w':
         case 'k':
