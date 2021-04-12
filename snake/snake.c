@@ -34,7 +34,7 @@
 #define SNAKE_TICK 75000
 #define WIDTH      40
 #define HEIGHT     20
-#defile ESC_KEY    27
+#define ESC_KEY    27
 
 enum Direction {
     LEFT,
